@@ -19,7 +19,7 @@ module.exports = {
         ]
     },
     entry: [
-        path.resolve(__dirname, './.js/target/scala-2.13/frontend-fastopt.js'),
+        path.resolve(__dirname, './target/scala-2.13/frontend-fastopt.js'),
     ],
     plugins: [
         new HtmlWebpackPlugin({

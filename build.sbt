@@ -4,9 +4,7 @@ name := "webapp-scalajs"
 
 version := "0.1"
 
-scalaVersion in ThisBuild := Settings.versions.scala
-
-scalacOptions in ThisBuild ++= Settings.scalacOptions
+scalaVersion in ThisBuild := "2.13.1"
 
 lazy val `root` = project
   .in(file("."))
@@ -21,17 +19,29 @@ lazy val `backend` = project
       "com.typesafe.akka" %% "akka-stream" % "2.6.4"
     )
   )
+  .dependsOn(shared.jvm)
 
-lazy val frontend =
-  (crossProject(JSPlatform).crossType(CrossType.Pure) in file("./frontend"))
-    .enablePlugins(ScalaJSPlugin)
-    .jsSettings(
-      scalaJSLinkerConfig ~= {
-        _.withModuleKind(ModuleKind.CommonJSModule)
-      },
-      scalaJSUseMainModuleInitializer := true,
-      mainClass in Compile := Some("App"),
-      libraryDependencies ++= Seq(
-        "org.scala-js" %%% "scalajs-dom" % "1.0.0"
-      )
+lazy val frontend = project
+  .in(file("./frontend"))
+  .enablePlugins(ScalaJSPlugin)
+  .settings(
+    scalaJSLinkerConfig ~= {
+      _.withModuleKind(ModuleKind.CommonJSModule)
+    },
+    scalaJSUseMainModuleInitializer := true,
+    mainClass in Compile := Some("App"),
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % "1.0.0",
+      "io.circe" %%% "circe-core" % "0.13.0",
+      "io.circe" %%% "circe-generic" % "0.13.0",
+      "io.circe" %%% "circe-parser" % "0.13.0",
     )
+  )
+  .dependsOn(shared.js)
+
+lazy val shared = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("./shared"))
+  .settings(
+    libraryDependencies += "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11"
+  )

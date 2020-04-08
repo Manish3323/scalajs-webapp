@@ -1,19 +1,22 @@
-import org.scalajs.dom
+import http.Client
 import org.scalajs.dom.document
 
-import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.scalajs.js
+import scala.util.Success
 
-@JSExportTopLevel("App")
 object App {
 
-  def appendPar(targetNode: dom.Node): Unit = {
-    val parNode = document.createElement("p")
-//    parNode.textContent = Client.get("http://localhost:9000/hello")
-    targetNode.appendChild(parNode)
-  }
-
-  @JSExport
   def main(args: Array[String]): Unit = {
-    appendPar(document.body)
+    {
+      val parNode = document.createElement("p")
+      Client.get("http://localhost:9000/hello")
+        .onComplete {
+          case Success(value) =>
+            parNode.textContent =
+              js.JSON.parse(value.responseText).message.toString
+            document.body.appendChild(parNode)
+        }
+    }
   }
 }

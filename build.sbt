@@ -32,7 +32,6 @@ lazy val frontend =
       scalaJSUseMainModuleInitializer := true,
       mainClass in Compile := Some("App"),
       libraryDependencies ++= Seq(
-        "org.scala-js" %%% "scalajs-dom" % "1.0.0",
-        "com.lihaoyi" %%% "autowire" % "0.2.6"
+        "org.scala-js" %%% "scalajs-dom" % "1.0.0"
       )
     )

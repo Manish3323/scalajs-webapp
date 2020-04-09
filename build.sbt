@@ -16,7 +16,9 @@ lazy val `backend` = project
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-http" % "10.1.11",
       "ch.megard" %% "akka-http-cors" % "0.4.2",
-      "com.typesafe.akka" %% "akka-stream" % "2.6.4"
+      "com.typesafe.akka" %% "akka-stream" % "2.6.4",
+      "io.bullet" %% "borer-core" % "1.5.0",
+      "io.bullet" %% "borer-compat-akka" % "1.5.0"
     )
   )
   .dependsOn(shared.jvm)
@@ -32,9 +34,8 @@ lazy val frontend = project
     mainClass in Compile := Some("App"),
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "1.0.0",
-      "io.circe" %%% "circe-core" % "0.13.0",
-      "io.circe" %%% "circe-generic" % "0.13.0",
-      "io.circe" %%% "circe-parser" % "0.13.0",
+      "io.bullet" %%% "borer-core" % "1.5.0",
+      "io.bullet" %%% "borer-derivation" % "1.5.0"
     )
   )
   .dependsOn(shared.js)
@@ -43,5 +44,9 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("./shared"))
   .settings(
-    libraryDependencies += "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11"
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11",
+      "io.bullet" %% "borer-core" % "1.5.0",
+      "io.bullet" %% "borer-derivation" % "1.5.0"
+    )
   )

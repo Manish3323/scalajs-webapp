@@ -1,10 +1,11 @@
 package models
 
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import spray.json.{DefaultJsonProtocol, RootJsonFormat}
+import io.bullet.borer.{Codec, Decoder, Encoder}
+import io.bullet.borer.derivation.CompactMapBasedCodecs
 
-trait MessageFormat extends SprayJsonSupport with DefaultJsonProtocol {
-  implicit val messageFormat: RootJsonFormat[Message] = jsonFormat1(Message)
+trait MessageCodec {
+  implicit lazy val MessageCodec: Codec[Message] =
+    CompactMapBasedCodecs.deriveCodec
 }
 
 case class Message(value: String)

@@ -1,12 +1,7 @@
 import components.Printer
-import http.Client
-import io.bullet.borer.Json
-import models.{Message, MessageCodec}
+import models.MessageCodec
 import org.scalajs.dom.document
 import slinky.web.ReactDOM
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Success}
 
 object App extends MessageCodec {
 
@@ -25,7 +20,7 @@ object App extends MessageCodec {
 //        }
 
       val container = document.getElementById("container")
-      ReactDOM.render(Printer("manish"), container)
+      ReactDOM.render(Printer("string from stateless component"), container)
     }
   }
 }

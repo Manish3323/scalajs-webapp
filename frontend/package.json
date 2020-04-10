@@ -12,6 +12,7 @@
     "react-dom": "16.12.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode=development --config webpack.dev.config.js"
+    "start": "webpack-dev-server --mode=development --config webpack.dev.config.js",
+    "build": "webpack --mode=production --config webpack.dev.config.js"
   }
 }

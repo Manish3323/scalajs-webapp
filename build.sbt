@@ -46,7 +46,8 @@ lazy val frontend = project
 //      "org.scalablytyped" %%% "react-dom" % "16.9.5-652383",
       "org.webjars.npm" % "react" % "16.12.0",
       "org.webjars.npm" % "react-dom" % "16.12.0"
-    )
+    ),
+    scalacOptions += "-P:scalajs:sjsDefinedByDefault"
   )
   .dependsOn(shared.js)
 
@@ -55,7 +56,6 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .in(file("./shared"))
   .settings(
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11",
       "io.bullet" %% "borer-core" % "1.4.0",
       "io.bullet" %% "borer-derivation" % "1.4.0"
     )

@@ -34,14 +34,17 @@ lazy val frontend = project
     scalaJSLinkerConfig ~= {
       _.withModuleKind(ModuleKind.CommonJSModule)
     },
+    jsEnv in Test := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
       "io.bullet" %%% "borer-core" % "1.5.0",
       "io.bullet" %%% "borer-derivation" % "1.5.0",
       "org.scalablytyped" %%% "react" % "16.9.34-bd5dcd",
       "org.scalablytyped" %%% "react-dom" % "16.9.6-c2d8f7",
-      "me.shadaj" %%% "slinky-hot" % "0.6.4+2-3c8aef65"
-    )
+      "me.shadaj" %%% "slinky-hot" % "0.6.4+2-3c8aef65",
+      "com.lihaoyi" %% "utest" % "0.7.4" % "test"
+    ),
+    testFrameworks += new TestFramework("utest.runner.Framework")
   )
   .dependsOn(shared.js)
 

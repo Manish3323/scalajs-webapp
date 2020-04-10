@@ -19,12 +19,16 @@ object App extends MessageCodec {
             val message: Message =
               Json.decode(response.responseText.getBytes()).to[Message].value
             text = message.value
-            val container = document.getElementById("container")
-            ReactDOM.render(Printer(text), container)
+            setupUI(text)
           case Failure(exception) =>
             text = exception.getMessage
         }
 
     }
+  }
+
+  def setupUI(name: String): Unit = {
+    val container = document.getElementById("container")
+    ReactDOM.render(Printer(name), container)
   }
 }

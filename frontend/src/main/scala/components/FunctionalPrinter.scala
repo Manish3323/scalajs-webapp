@@ -10,5 +10,4 @@ import slinky.web.html.h1
     props =>
       h1(props.name)
   }
-
 }

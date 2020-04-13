@@ -1,3 +1,4 @@
+import org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv
 import sbtcrossproject.CrossPlugin.autoImport.{CrossType, crossProject}
 
 name := "webapp-scalajs"
@@ -34,17 +35,21 @@ lazy val frontend = project
     scalaJSLinkerConfig ~= {
       _.withModuleKind(ModuleKind.CommonJSModule)
     },
-    jsEnv in Test := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
       "io.bullet" %%% "borer-core" % "1.5.0",
       "io.bullet" %%% "borer-derivation" % "1.5.0",
       "org.scalablytyped" %%% "react" % "16.9.34-bd5dcd",
       "org.scalablytyped" %%% "react-dom" % "16.9.6-c2d8f7",
-      "me.shadaj" %%% "slinky-hot" % "0.6.4+2-3c8aef65",
-      "com.lihaoyi" %% "utest" % "0.7.4" % "test"
+      "me.shadaj" %%% "slinky-hot" % "0.6.5",
+      "org.scalatest" %%% "scalatest" % "3.1.1",
+      "org.scala-js" %%% "scalajs-dom" % "1.0.0"
     ),
-    testFrameworks += new TestFramework("utest.runner.Framework")
+    jsEnv := new JSDOMNodeJSEnv(), // imp :: `npm install jsdom`
+    scalaJSLinkerConfig in Test ~= {
+      _.withModuleKind(ModuleKind.NoModule) // since scripts are required as input to testing library commonjsModule gives invalid input.
+    },
+    jsEnv in Test := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv() // this needs to be set which makes sure  `window` is available by jsdom
   )
   .dependsOn(shared.js)
 

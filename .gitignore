@@ -26,3 +26,4 @@ node_modules/
 build/
 local.properties
 .expo/
+*/dist/*

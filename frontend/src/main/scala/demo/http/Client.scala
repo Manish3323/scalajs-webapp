@@ -1,4 +1,4 @@
-package http
+package demo.http
 
 import org.scalajs.dom.XMLHttpRequest
 import org.scalajs.dom.ext.Ajax

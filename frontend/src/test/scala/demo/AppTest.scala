@@ -1,4 +1,5 @@
-package scala.demo
+package demo
+
 import org.scalajs.dom.window.document
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers
@@ -10,10 +11,13 @@ class AppTest extends FlatSpec with Matchers {
   }
 
   "it" should "have dom's h1 element" in {
-    var node = document.createElement("h1")
-    node.textContent = "test"
-    document.body.appendChild(node)
+    App.setupUI("test123")
+    assert(document.querySelector("h1").textContent == "test123")
+  }
 
-    assert(document.querySelector("h1").textContent == "test")
+  "it" should "demo" in {
+    App.setupUI("test123")
+    document.querySelector("h1").textContent shouldBe "test123"
+    App.counter shouldBe 0
   }
 }

@@ -1,6 +1,6 @@
-package components
+package demo.components
 
-import slinky.core.{StatelessComponent}
+import slinky.core.StatelessComponent
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html.h1

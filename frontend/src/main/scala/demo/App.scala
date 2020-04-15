@@ -4,8 +4,9 @@ import components.Printer
 import http.Client
 import io.bullet.borer.Json
 import models.{Message, MessageCodec}
-import org.scalajs.dom.document
+import org.scalajs.dom.{Element, document}
 import slinky.web.ReactDOM
+import slinky.web.html.div
 import typings.std.console
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -35,12 +36,11 @@ object App extends MessageCodec {
 //            text = exception.getMessage
 //        }
 //    }
-
     setupUI("abc")
   }
 
   def setupUI(name: String): Unit = {
-    var node = document.createElement("h1")
+    var node: Element = document.createElement("h1")
     node.textContent = name
     document.body.appendChild(node)
     document.onclick = { _ =>

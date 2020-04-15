@@ -22,21 +22,28 @@ object App extends MessageCodec {
   }
 
   def main(args: Array[String]): Unit = {
-//    {
-//      var text = ""
-//      Client
-//        .get("http://localhost:9000/hello")
-//        .onComplete {
-//          case Success(response) =>
-//            val message: Message =
-//              Json.decode(response.responseText.getBytes()).to[Message].value
-//            text = message.value
-//            setupUI(text + add(1, 2))
-//          case Failure(exception) =>
-//            text = exception.getMessage
-//        }
-//    }
+    {
+      var text = ""
+      Client
+        .get("http://localhost:9000/hello")
+        .onComplete {
+          case Success(response) =>
+            val message: Message =
+              Json.decode(response.responseText.getBytes()).to[Message].value
+            text = message.value
+            setupReactDom(
+              text + add(1, 2),
+              document.getElementById("contianer")
+            )
+          case Failure(exception) =>
+            text = exception.getMessage
+        }
+    }
     setupUI("abc")
+  }
+
+  def setupReactDom(str: String, container: Element) = {
+    ReactDOM.render(Printer("123"), container)
   }
 
   def setupUI(name: String): Unit = {

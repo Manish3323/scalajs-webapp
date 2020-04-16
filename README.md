@@ -9,3 +9,4 @@
 # future steps
 1. explore testing libraries
 2. scala-js-bundler can be used in place of writing jest facades to overcome the common js modules incompatibility issue.
+3. explore scalajs-webpack-loader plugin.
